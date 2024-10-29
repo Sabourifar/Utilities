@@ -1,3 +1,5 @@
+# If the script is not running, please open PowerShell as Administrator and run the following command:
+# Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
 
 function Get-Password {
     # Function to display the title with a dynamic border
