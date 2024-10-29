@@ -1,5 +1,3 @@
-Here’s a README file for the two provided scripts, outlining their purpose, usage, and functionality:
-
 ---
 
 # README
@@ -8,14 +6,14 @@ Here’s a README file for the two provided scripts, outlining their purpose, us
 
 This repository contains two utilities developed by Sabourifar: 
 
-1. **DNS Configuration Utility** (Batch Script)
-2. **Password Generator Utility** (PowerShell Script)
+1. **DNS Configuration Utility**
+2. **Password Generator Utility**
 
 These scripts are designed to facilitate network DNS configuration and secure password generation, respectively.
 
 ---
 
-## Script 1: DNS Configuration Utility
+## DNS Configuration Utility
 
 ### Description
 
@@ -48,7 +46,7 @@ The **DNS Configuration Utility** is a Batch script that helps users configure D
 
 ---
 
-## Script 2: Password Generator Utility
+## Password Generator Utility
 
 ### Description
 
@@ -62,6 +60,14 @@ The **Password Generator Utility** is a PowerShell script that generates secure 
 
 ### Prerequisites
 - Windows Operating System with PowerShell support.
+
+### Important Note
+
+Before running the Password Generator Utility, set the execution policy by running the following command in PowerShell:
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
+```
 
 ### Usage
 
@@ -85,3 +91,16 @@ The **Password Generator Utility** is a PowerShell script that generates secure 
 
 Feel free to modify and enhance the scripts as needed. Contributions are welcome!
 
+---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## Contact
+
+For any inquiries or feedback, please reach out to Sabourifar.
+
+---
