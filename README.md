@@ -1,5 +1,3 @@
-Here’s the revised README file, replacing "Script 1" and "Script 2" with their actual names and including the note about the execution policy:
-
 ---
 
 # README
