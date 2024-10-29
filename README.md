@@ -1,3 +1,5 @@
+Here’s the revised README file, replacing "Script 1" and "Script 2" with their actual names and including the note about the execution policy:
+
 ---
 
 # README
@@ -102,5 +104,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Contact
 
 For any inquiries or feedback, please reach out to Sabourifar.
-
----
