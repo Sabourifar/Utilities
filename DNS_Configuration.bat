@@ -1,213 +1,250 @@
 @echo off
 setlocal enabledelayedexpansion
 
-:: Check for administrator privileges
-:: Attempt to access a system directory that requires admin rights
-fsutil dirty query %systemdrive% >nul 2>&1
-if '%errorlevel%' NEQ '0' (
-    echo  == Requesting administrative privileges...
+:: Administrator Privileges Check
+NET FILE >nul 2>&1
+if %ERRORLEVEL% NEQ 0 (
+    echo  == Requesting Administrative Privileges...
     echo.
-
-    :: Re-run the script with administrator privileges
-    powershell -command "Start-Process '%~f0' -Verb RunAs"
+    powershell -noprofile -command "Start-Process '%~f0' -Verb RunAs" >nul
     exit /b
 )
 
-:: Set title
-title DNS Configuration Utility by Sabourifar
+title DNS Configuration Utility By Sabourifar
 
-:: Display header
-echo ======================================= DNS Configuration Utility by Sabourifar ========================================
+echo ======================================= DNS Configuration Utility By Sabourifar ========================================
+echo.
+echo  == Detecting Active Network Interface...
 echo.
 
-echo  == Detecting the active network interface...
-echo.
-
-:: Get the active network interface name
-for /f "delims=" %%i in ('powershell -command "Get-NetAdapter | Where-Object { $_.Status -eq 'Up' -and $_.InterfaceType -ne 'Loopback' } | Select-Object -ExpandProperty Name"') do (
+:: Get Active Network Interface
+set "interface="
+for /f "delims=" %%i in (
+    'powershell -noprofile -command "(Get-NetAdapter -Physical | Where-Object { $_.Status -eq 'Up' } | Select-Object -First 1).Name"'
+) do (
     set "interface=%%i"
 )
 
-:: Check if a network interface is found
 if not defined interface (
-    echo No active network interface found
+    echo   ==== No Active Network Interface Found
+    echo.
+    echo ========================================================================================================================
+    echo.
+    
     pause
     exit /b
 )
 
-echo   ==== Active network interface: %interface%
+echo   ==== Active Network Interface: %interface%
 echo.
 
-:: Display current DNS settings using PowerShell
-for /f "tokens=*" %%a in ('powershell -command "Get-DnsClientServerAddress -InterfaceAlias '%interface%' -AddressFamily IPv4 | Select-Object -ExpandProperty ServerAddresses"') do (
-    if not defined primary_dns (
-        set "primary_dns=%%a"
-    ) else if not defined secondary_dns (
-        set "secondary_dns=%%a"
-    )
+:: Get Current DNS Settings
+set "primary_dns=" & set "secondary_dns="
+for /f "tokens=1,2" %%a in (
+    'powershell -noprofile -command "@(Get-DnsClientServerAddress -InterfaceAlias '%interface%' -AddressFamily IPv4 | %%{ $_.ServerAddresses }) -join ' '"'
+) do (
+    set "primary_dns=%%a"
+    set "secondary_dns=%%b"
 )
 
+:: Display Current DNS Configuration
 if defined primary_dns (
-    echo   ==== Primary DNS: %primary_dns%
+    echo   ==== Primary DNS: !primary_dns!
 ) else (
     echo   ==== Primary DNS: Not Configured
 )
+
 echo.
 
 if defined secondary_dns (
-    echo   ==== Secondary DNS: %secondary_dns%
+    echo   ==== Secondary DNS: !secondary_dns!
 ) else (
     echo   ==== Secondary DNS: Not Configured
 )
 
 echo.
-echo.
 
 :main_menu
-:: Ask the user for DNS configuration method
-echo Select a DNS configuration method:
+:: Main Program Menu
+set "choice="
+echo ========================================================================================================================
 echo.
-echo 1. Public DNS Servers (Pre Configured)
-echo 2. Advanced (Configure Yourself)
-echo 3. Set DNS to DHCP
-echo 4. Flush DNS Cache
+echo  # Select DNS Configuration Method
 echo.
-set /p "choice=Enter your choice: "
+echo  1. Public DNS Servers (Pre Configured)
+echo  2. Advanced (Configure Manually)
+echo  3. Set DNS To DHCP
+echo  4. Flush DNS Cache
+echo.
+set /p "choice=Enter Your Choice: "
 
-if "%choice%" == "1" (
-    goto choose_dns
-) else if "%choice%" == "2" (
-    goto advanced_dns
-) else if "%choice%" == "3" (
-    goto set_dhcp
-) else if "%choice%" == "4" (
-    goto flush_dns
-) else (
-    echo Invalid selection, please try again.
-    echo.
-    goto main_menu
-)
+if not defined choice goto main_menu
+if "%choice%" geq "1" if "%choice%" leq "4" goto :choice_%choice%
+
+echo.
+echo ========================================================================================================================
+echo.
+echo  Invalid Selection, Please Try Again.
+echo.
+goto main_menu
+
+:choice_1
+call :choose_dns
+goto :eof
+
+:choice_2
+call :advanced_dns
+goto :eof
+
+:choice_3
+call :set_dhcp
+goto :eof
+
+:choice_4
+call :flush_dns
+goto :eof
 
 :set_dhcp
 echo.
-echo == Setting DNS to DHCP...
+echo ========================================================================================================================
+echo.
+echo  == Setting DNS To DHCP...
 echo.
 netsh interface ipv4 set dns name="%interface%" source=dhcp >nul
-echo   ==== DNS has been set to DHCP successfully.
-echo.
-
-:: Flush DNS after setting DHCP
+echo   ==== DNS Has Been Set To DHCP Successfully.
 goto flush_dns
 
 :choose_dns
+:: Preconfigured DNS Selection Menu
+set "dnschoice="
 echo.
-echo Select a Public DNS Server:
+echo ========================================================================================================================
 echo.
-echo 1. Cloudflare
-echo 2. Google
-echo 3. Quad9
-echo 4. OpenDNS
-echo 5. Shecan
-echo 6. 403
-echo 7. Radar
-echo 8. Electro
+echo  # Select Public DNS Server
 echo.
-set /p "dnschoice=Enter your choice: "
+echo  1. Cloudflare
+echo  2. 127.0.0.1 (DNSCrypt Default)
+echo  3. Google
+echo  4. Quad9
+echo  5. OpenDNS
+echo  6. Shecan
+echo  7. 403
+echo  8. Radar
+echo  9. Electro
+echo.
+set /p "dnschoice=Enter Your Choice: "
 
-if "%dnschoice%" == "1" (
-    set NAME=Cloudflare
-    set DNS1=1.1.1.1
-    set DNS2=1.0.0.1
-) else if "%dnschoice%" == "2" (
-    set NAME=Google
-    set DNS1=8.8.8.8
-    set DNS2=8.8.4.4
-) else if "%dnschoice%" == "3" (
-    set NAME=Quad9
-    set DNS1=9.9.9.9
-    set DNS2=149.112.112.112
-) else if "%dnschoice%" == "4" (
-    set NAME=OpenDNS
-    set DNS1=208.67.222.222
-    set DNS2=208.67.220.220
-) else if "%dnschoice%" == "5" (
-    set NAME=Shecan
-    set DNS1=178.22.122.100
-    set DNS2=185.51.200.2
-) else if "%dnschoice%" == "6" (
-    set NAME=403
-    set DNS1=10.202.10.202
-    set DNS2=10.202.10.102
-) else if "%dnschoice%" == "7" (
-    set NAME=Radar
-    set DNS1=10.202.10.10
-    set DNS2=10.202.10.11
-) else if "%dnschoice%" == "8" (
-    set NAME=Electro
-    set DNS1=78.157.42.100
-    set DNS2=78.157.42.101
-) else (
-    echo Invalid selection, please try again.
-    echo.
-    goto choose_dns
+set "NAME=" & set "DNS1=" & set "DNS2="
+for %%A in (
+    "1=Cloudflare=1.1.1.1=1.0.0.1"
+    "2=127.0.0.1 (DNSCrypt Default)=127.0.0.1="
+    "3=Google=8.8.8.8=8.8.4.4"
+    "4=Quad9=9.9.9.9=149.112.112.112"
+    "5=OpenDNS=208.67.222.222=208.67.220.220"
+    "6=Shecan=178.22.122.100=185.51.200.2"
+    "7=403=10.202.10.202=10.202.10.102"
+    "8=Radar=10.202.10.10=10.202.10.11"
+    "9=Electro=78.157.42.100=78.157.42.101"
+) do (
+    for /f "tokens=1-4 delims==" %%B in (%%A) do (
+        if "%%B" == "%dnschoice%" (
+            set "NAME=%%C"
+            set "DNS1=%%D"
+            set "DNS2=%%E"
+        )
+    )
 )
 
+if not defined NAME (
+    echo.
+    echo ========================================================================================================================
+    echo.
+    echo  Invalid Selection, Please Try Again.
+    goto choose_dns
+)
 goto apply_dns
 
 :advanced_dns
+:: Custom DNS Configuration
 echo.
-set NAME=Custom
-set /p "DNS1=Enter the Primary DNS server: "
+echo ========================================================================================================================
 echo.
-set /p "DNS2=Enter the Secondary DNS server: "
-goto apply_dns
+:get_primary
+set "DNS1="
+set /p "DNS1=Enter The Primary DNS Server: "
+if not defined DNS1 (
+    echo.
+    echo ========================================================================================================================
+    echo.
+    echo  Please Enter A Valid Primary DNS Server.
+    echo.
+    echo ========================================================================================================================
+    echo.
+    goto get_primary
+)
+
+echo.
+
+set "DNS2="
+set /p "DNS2=Enter The Secondary DNS Server (Optional): "
+set "NAME=Custom"
 
 :apply_dns
+:: Apply DNS Settings
 echo.
-echo == Applying DNS settings...
+echo ========================================================================================================================
 echo.
-
-:: Set DNS
+echo  == Applying DNS Settings...
+echo.
 netsh interface ipv4 set dns name="%interface%" static %DNS1% primary >nul
-netsh interface ipv4 add dns name="%interface%" %DNS2% index=2 >nul
+if defined DNS2 (
+    if "%DNS2%" NEQ "" (
+        netsh interface ipv4 add dns name="%interface%" %DNS2% index=2 >nul
+    )
+)
 
-echo   ==== DNS servers have been configured successfully
+echo   ==== DNS Name: %NAME%
 echo.
-echo    ====== DNS Name: %NAME%
+echo   ==== Primary DNS: %DNS1%
 echo.
-echo    ====== Primary DNS: %DNS1%
-echo.
-echo    ====== Secondary DNS: %DNS2%
-echo.
-
-goto flush_dns
+if defined DNS2 (
+    if "%DNS2%" NEQ "" (
+        echo   ==== Secondary DNS: %DNS2%
+    ) else (
+        echo   ==== Secondary DNS: Not Configured
+    )
+) else (
+    echo   ==== Secondary DNS: Not Configured
+)
 
 :flush_dns
+:: Flush DNS Cache
 echo.
-echo == Clearing DNS cache...
+echo ========================================================================================================================
 echo.
-
-:: Flush DNS cache
+echo  == Clearing DNS Cache...
+echo.
 ipconfig /flushdns >nul
-
-echo   ==== Successfully cleared the DNS resolver cache
+echo   ==== Successfully Cleared DNS Resolver Cache.
 echo.
-echo.
-
-call :ask_menu_or_exit
-
-:ask_menu_or_exit
-echo Press 1 to return to the main menu or 0 to exit.
-echo.
-set /p "userchoice=Enter your choice: "
+echo ========================================================================================================================
 echo.
 
-if "%userchoice%" == "1" (
-    goto main_menu
-) else if "%userchoice%" == "0" (
-    exit
-) else (
-    echo Invalid selection, please try again.
-    echo.
-    goto ask_menu_or_exit
-)
+:exit_menu
+:: Exit Or Return To Menu
+set "userchoice="
+echo  Press 1 To Return To Main Menu Or 0 To Exit.
+echo.
+set /p "userchoice=Enter Your Choice: "
+echo.
+
+if "%userchoice%"=="1" goto main_menu
+if "%userchoice%"=="0" exit
+
+echo ========================================================================================================================
+echo.
+echo  Invalid Selection, Please Try Again.
+echo.
+echo ========================================================================================================================
+echo.
+goto exit_menu
