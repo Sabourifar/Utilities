@@ -10,9 +10,9 @@ if %ERRORLEVEL% NEQ 0 (
     exit /b
 )
 
-title DNS Configuration Utility By Sabourifar
+title DNS Configuration Utility v3 By Sabourifar
 
-echo ======================================= DNS Configuration Utility By Sabourifar ========================================
+echo ====================================== DNS Configuration Utility v3 By Sabourifar ======================================
 echo.
 echo  == Detecting Active Network Interface...
 echo.
@@ -28,11 +28,7 @@ for /f "delims=" %%i in (
 if not defined interface (
     echo   ==== No Active Network Interface Found
     echo.
-    echo ========================================================================================================================
-    echo.
-    
-    pause
-    exit /b
+    goto no_interface_menu
 )
 
 echo   ==== Active Network Interface: %interface%
@@ -75,11 +71,24 @@ echo  1. Public DNS Servers (Pre Configured)
 echo  2. Advanced (Configure Manually)
 echo  3. Set DNS To DHCP
 echo  4. Flush DNS Cache
+echo  5. Exit
 echo.
 set /p "choice=Enter Your Choice: "
 
-if not defined choice goto main_menu
-if "%choice%" geq "1" if "%choice%" leq "4" goto :choice_%choice%
+if "%choice%"=="" (
+    echo.
+    echo ========================================================================================================================
+    echo.
+    echo  Invalid Selection, Please Try Again.
+    echo.
+    goto main_menu
+)
+
+if "%choice%"=="1" goto :choice_1
+if "%choice%"=="2" goto :choice_2
+if "%choice%"=="3" goto :choice_3
+if "%choice%"=="4" goto :choice_4
+if "%choice%"=="5" exit
 
 echo.
 echo ========================================================================================================================
@@ -88,21 +97,52 @@ echo  Invalid Selection, Please Try Again.
 echo.
 goto main_menu
 
+:no_interface_menu
+:: Menu for No Active Interface
+set "choice="
+echo ========================================================================================================================
+echo.
+echo  # Only Flush DNS Cache is Available - Connect to a Network to Configure DNS
+echo.
+echo  1. Flush DNS Cache
+echo  2. Exit
+echo.
+set /p "choice=Enter Your Choice: "
+
+if "%choice%"=="" (
+    echo.
+    echo ========================================================================================================================
+    echo.
+    echo  Invalid Selection, Please Try Again.
+    echo.
+    goto no_interface_menu
+)
+
+if "%choice%"=="1" goto :flush_dns
+if "%choice%"=="2" exit
+
+echo.
+echo ========================================================================================================================
+echo.
+echo  Invalid Selection, Please Try Again.
+echo.
+goto no_interface_menu
+
 :choice_1
 call :choose_dns
-goto :eof
+goto :exit_menu
 
 :choice_2
 call :advanced_dns
-goto :eof
+goto :exit_menu
 
 :choice_3
 call :set_dhcp
-goto :eof
+goto :exit_menu
 
 :choice_4
 call :flush_dns
-goto :eof
+goto :exit_menu
 
 :set_dhcp
 echo.
@@ -116,35 +156,36 @@ goto flush_dns
 
 :choose_dns
 :: Preconfigured DNS Selection Menu
+:retry_dns
 set "dnschoice="
 echo.
 echo ========================================================================================================================
 echo.
 echo  # Select Public DNS Server
 echo.
+echo  0. 127.0.0.1 (DNSCrypt Default)
 echo  1. Cloudflare
-echo  2. 127.0.0.1 (DNSCrypt Default)
-echo  3. Google
-echo  4. Quad9
-echo  5. OpenDNS
-echo  6. Shecan
-echo  7. 403
-echo  8. Radar
-echo  9. Electro
+echo  2. Google
+echo  3. Quad9
+echo  4. OpenDNS
+echo  5. Shecan
+echo  6. 403
+echo  7. Radar
+echo  8. Electro
 echo.
 set /p "dnschoice=Enter Your Choice: "
 
 set "NAME=" & set "DNS1=" & set "DNS2="
 for %%A in (
+    "0=127.0.0.1 (DNSCrypt Default)=127.0.0.1="
     "1=Cloudflare=1.1.1.1=1.0.0.1"
-    "2=127.0.0.1 (DNSCrypt Default)=127.0.0.1="
-    "3=Google=8.8.8.8=8.8.4.4"
-    "4=Quad9=9.9.9.9=149.112.112.112"
-    "5=OpenDNS=208.67.222.222=208.67.220.220"
-    "6=Shecan=178.22.122.100=185.51.200.2"
-    "7=403=10.202.10.202=10.202.10.102"
-    "8=Radar=10.202.10.10=10.202.10.11"
-    "9=Electro=78.157.42.100=78.157.42.101"
+    "2=Google=8.8.8.8=8.8.4.4"
+    "3=Quad9=9.9.9.9=149.112.112.112"
+    "4=OpenDNS=208.67.222.222=208.67.220.220"
+    "5=Shecan=178.22.122.100=185.51.200.2"
+    "6=403=10.202.10.202=10.202.10.102"
+    "7=Radar=10.202.10.10=10.202.10.11"
+    "8=Electro=78.157.42.100=78.157.42.101"
 ) do (
     for /f "tokens=1-4 delims==" %%B in (%%A) do (
         if "%%B" == "%dnschoice%" (
@@ -160,7 +201,7 @@ if not defined NAME (
     echo ========================================================================================================================
     echo.
     echo  Invalid Selection, Please Try Again.
-    goto choose_dns
+    goto retry_dns
 )
 goto apply_dns
 
@@ -233,12 +274,18 @@ echo.
 :exit_menu
 :: Exit Or Return To Menu
 set "userchoice="
-echo  Press 1 To Return To Main Menu Or 0 To Exit.
+echo  Press 1 To Return To Previous Menu Or 0 To Exit.
 echo.
 set /p "userchoice=Enter Your Choice: "
 echo.
 
-if "%userchoice%"=="1" goto main_menu
+if "%userchoice%"=="1" (
+    if not defined interface (
+        goto no_interface_menu
+    ) else (
+        goto main_menu
+    )
+)
 if "%userchoice%"=="0" exit
 
 echo ========================================================================================================================
