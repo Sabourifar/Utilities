@@ -11,36 +11,72 @@ These scripts are designed to facilitate network DNS configuration and secure pa
 
 ---
 
-## DNS Configuration Utility
+# DNS Configuration Utility v3
 
-### Description
+## Overview
 
-The **DNS Configuration Utility** is a Batch script that helps users configure DNS settings on their Windows machine. The script provides options to set public DNS servers, revert to DHCP, or flush the DNS cache.
+This repository contains the **DNS Configuration Utility v3**, a powerful Batch script developed by Sabourifar to simplify DNS configuration on Windows machines. This utility is designed to help users easily manage their DNS settings, whether they want to use pre-configured public DNS servers, set custom DNS servers, revert to DHCP, or flush the DNS cache.
 
-### Features
-- Detects the active network interface.
-- Displays current DNS settings.
-- Offers options to set public DNS servers (Cloudflare, Google, Quad9, etc.), configure custom DNS settings, or revert to DHCP.
-- Flushes the DNS cache after changes are made.
+---
 
-### Prerequisites
-- Windows Operating System
-- Administrative privileges (the script requests these if not already granted).
+## Features
 
-### Usage
+- **Automatic Network Interface Detection:** The script detects the active network interface and displays its current DNS settings.
+- **Pre-configured Public DNS Servers:** Choose from a list of popular DNS servers like Cloudflare, Google, Quad9, OpenDNS, Shecan, and more.
+- **Custom DNS Configuration:** Manually enter primary and secondary DNS servers for advanced users.
+- **DHCP Reversion:** Revert DNS settings to DHCP for automatic configuration.
+- **DNS Cache Flush:** Clear the DNS resolver cache to ensure changes take effect immediately.
+- **User-Friendly Interface:** Intuitive menu-driven interface with clear prompts and error handling.
+- **Administrative Privileges Check:** The script automatically requests administrative privileges if not already granted.
+
+---
+
+## Prerequisites
+
+- **Windows Operating System:** The script is designed for Windows and uses native commands like `netsh` and `ipconfig`.
+- **Administrative Privileges:** The script requires administrative rights to modify DNS settings. It will prompt for elevation if not run as an administrator.
+
+---
+
+## Usage
 
 1. **Run the Script:**
-   - Right-click on the script and select **Run as administrator**.
+   - Right-click on the script file (`DNS_Config_Utility_v3.bat`) and select **Run as administrator**.
 
 2. **Follow the On-Screen Prompts:**
-   - The script will display the active network interface and current DNS settings.
-   - Choose one of the available options by entering the corresponding number.
+   - The script will detect the active network interface and display its current DNS settings.
+   - Choose an option from the main menu to configure DNS settings, revert to DHCP, or flush the DNS cache.
 
-### Options
-1. **Public DNS Servers (Pre-configured)**
-2. **Advanced (Configure Yourself)**
-3. **Set DNS to DHCP**
-4. **Flush DNS Cache**
+3. **Select a DNS Configuration Method:**
+   - **Public DNS Servers:** Choose from a list of pre-configured DNS servers.
+   - **Advanced:** Manually enter primary and secondary DNS servers.
+   - **Set DNS to DHCP:** Revert to automatic DNS configuration via DHCP.
+   - **Flush DNS Cache:** Clear the DNS resolver cache.
+
+4. **Exit or Return to Menu:**
+   - After completing an action, you can return to the main menu or exit the script.
+
+---
+
+## Options
+
+### Main Menu
+1. **Public DNS Servers (Pre-configured):** Choose from a list of popular DNS servers.
+2. **Advanced (Configure Manually):** Enter custom primary and secondary DNS servers.
+3. **Set DNS to DHCP:** Revert to automatic DNS configuration via DHCP.
+4. **Flush DNS Cache:** Clear the DNS resolver cache.
+5. **Exit:** Exit the script.
+
+### Public DNS Servers
+- **Cloudflare:** `1.1.1.1` and `1.0.0.1`
+- **Google:** `8.8.8.8` and `8.8.4.4`
+- **Quad9:** `9.9.9.9` and `149.112.112.112`
+- **OpenDNS:** `208.67.222.222` and `208.67.220.220`
+- **Shecan:** `178.22.122.100` and `185.51.200.2`
+- **403:** `10.202.10.202` and `10.202.10.102`
+- **Radar:** `10.202.10.10` and `10.202.10.11`
+- **Electro:** `78.157.42.100` and `78.157.42.101`
+- **127.0.0.1 (DNSCrypt Default):** `127.0.0.1`
 
 ---
 
