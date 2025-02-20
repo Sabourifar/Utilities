@@ -11,15 +11,13 @@ These scripts are designed to facilitate network DNS configuration and secure pa
 
 ---
 
-# DNS Configuration Utility v3
+## DNS Configuration Utility v3
 
-## Overview
+### Overview
 
-This repository contains the **DNS Configuration Utility v3**, a powerful Batch script developed by Sabourifar to simplify DNS configuration on Windows machines. This utility is designed to help users easily manage their DNS settings, whether they want to use pre-configured public DNS servers, set custom DNS servers, revert to DHCP, or flush the DNS cache.
+The **DNS Configuration Utility v3** is a powerful Batch script developed by Sabourifar to simplify DNS configuration on Windows machines. This utility helps users easily manage their DNS settings, whether they want to use pre-configured public DNS servers, set custom DNS servers, revert to DHCP, or flush the DNS cache.
 
----
-
-## Features
+### Features
 
 - **Automatic Network Interface Detection:** The script detects the active network interface and displays its current DNS settings.
 - **Pre-configured Public DNS Servers:** Choose from a list of popular DNS servers like Cloudflare, Google, Quad9, OpenDNS, Shecan, and more.
@@ -29,16 +27,12 @@ This repository contains the **DNS Configuration Utility v3**, a powerful Batch 
 - **User-Friendly Interface:** Intuitive menu-driven interface with clear prompts and error handling.
 - **Administrative Privileges Check:** The script automatically requests administrative privileges if not already granted.
 
----
-
-## Prerequisites
+### Prerequisites
 
 - **Windows Operating System:** The script is designed for Windows and uses native commands like `netsh` and `ipconfig`.
 - **Administrative Privileges:** The script requires administrative rights to modify DNS settings. It will prompt for elevation if not run as an administrator.
 
----
-
-## Usage
+### Usage
 
 1. **Run the Script:**
    - Right-click on the script file (`DNS_Config_Utility_v3.bat`) and select **Run as administrator**.
@@ -56,18 +50,16 @@ This repository contains the **DNS Configuration Utility v3**, a powerful Batch 
 4. **Exit or Return to Menu:**
    - After completing an action, you can return to the main menu or exit the script.
 
----
+### Options
 
-## Options
-
-### Main Menu
+#### Main Menu
 1. **Public DNS Servers (Pre-configured):** Choose from a list of popular DNS servers.
 2. **Advanced (Configure Manually):** Enter custom primary and secondary DNS servers.
 3. **Set DNS to DHCP:** Revert to automatic DNS configuration via DHCP.
 4. **Flush DNS Cache:** Clear the DNS resolver cache.
 5. **Exit:** Exit the script.
 
-### Public DNS Servers
+#### Public DNS Servers
 - **Cloudflare:** `1.1.1.1` and `1.0.0.1`
 - **Google:** `8.8.8.8` and `8.8.4.4`
 - **Quad9:** `9.9.9.9` and `149.112.112.112`
@@ -82,17 +74,19 @@ This repository contains the **DNS Configuration Utility v3**, a powerful Batch 
 
 ## Password Generator Utility
 
-### Description
+### Overview
 
 The **Password Generator Utility** is a PowerShell script that generates secure passwords based on user-defined criteria. Users can opt for a fully secure password or choose custom criteria for password creation.
 
 ### Features
+
 - Displays a user-friendly title with a dynamic border.
 - Allows the user to choose between a secure password (includes uppercase, lowercase, numbers, and symbols) or a custom password.
 - Validates user input for password length and character set selection.
 - Optionally saves the generated password to a text file.
 
 ### Prerequisites
+
 - Windows Operating System with PowerShell support.
 
 ### Important Note
@@ -113,10 +107,12 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
    - Input the desired password length (between 4 and 80 characters).
 
 ### Options
+
 1. **Secure Password:** Includes uppercase, lowercase, numbers, and symbols.
 2. **Advanced Password:** Choose which character sets to include (uppercase, lowercase, numbers, symbols).
 
 ### Saving Passwords
+
 - After generating a password, the script will prompt you to save it to a file named `Password.txt` in the same directory as the script.
 
 ---
