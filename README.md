@@ -47,26 +47,35 @@ The **DNS Configuration Utility v5** is a Batch script developed by Sabourifar t
 ### Options
 
 #### Main Menu
-1. **Public DNS Servers:** Pre-configured options.
-2. **Advanced:** Manual DNS entry with validation.
-3. **Set DNS to DHCP:** Automatic configuration.
-4. **Flush DNS Cache:** Clear the cache.
-0. **Exit:** Close the script.
+- **1. Public DNS Servers (Pre Configured):** Select from a list of public DNS servers.
+- **2. Advanced (Configure Manually):** Enter custom DNS servers with validation.
+- **3. Set DNS To DHCP:** Revert to automatic DNS via DHCP.
+- **4. Flush DNS Cache:** Clear the DNS resolver cache.
+- **0. Exit:** Close the script.
 
 #### Public DNS Servers
-1. **Cloudflare:** `1.1.1.1`, `1.0.0.1`
-2. **Google:** `8.8.8.8`, `8.8.4.4`
-3. **Quad9:** `9.9.9.9`, `149.112.112.112`
-4. **OpenDNS:** `208.67.222.222`, `208.67.220.220`
-5. **Shecan:** `178.22.122.100`, `185.51.200.2`
-6. **403:** `10.202.10.202`, `10.202.10.102`
-7. **Radar:** `10.202.10.10`, `10.202.10.11`
-8. **Electro:** `78.157.42.100`, `78.157.42.101`
-9. **127.0.0.1 (DNSCrypt Default):** `127.0.0.1`
-0. **Return to Menu:** Go back without applying changes.
+- **1. Cloudflare:** `1.1.1.1`, `1.0.0.1`
+- **2. Google:** `8.8.8.8`, `8.8.4.4`
+- **3. Quad9:** `9.9.9.9`, `149.112.112.112`
+- **4. OpenDNS:** `208.67.222.222`, `208.67.220.220`
+- **5. Shecan:** `178.22.122.100`, `185.51.200.2`
+- **6. 403:** `10.202.10.202`, `10.202.10.102`
+- **7. Radar:** `10.202.10.10`, `10.202.10.11`
+- **8. Electro:** `78.157.42.100`, `78.157.42.101`
+- **9. 127.0.0.1 (DNSCrypt Default):** `127.0.0.1`
+- **0. Return to menu:** Go back to the main menu without applying changes.
+
+#### No Interface Menu (Displayed if no active network interface is found)
+- **1. Flush DNS Cache:** Clear the DNS resolver cache.
+- **0. Exit:** Close the script.
 
 #### Advanced Configuration
+- Prompts for Primary and Secondary (optional) DNS servers.
 - Validates IP addresses (e.g., `X.X.X.X`, each octet 0-255, no leading zeros).
+
+#### Exit Menu (After an Action)
+- **1. Return to menu:** Go back to the main or no-interface menu.
+- **0. Exit:** Close the script.
 
 ---
 
@@ -108,16 +117,16 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
 ### Options
 
 #### Main Menu
-1. **Secure Password:** All character types included.
-2. **Custom Password:** Choose character sets.
-0. **Exit:** Close the script.
+- **1. Secure Password (Recommended):** Generates a password with all character types.
+- **2. Custom Password:** Allows selection of character types (uppercase, lowercase, numbers, symbols).
+- **0. Exit:** Close the script.
 
-#### Action Menu
-1. **Generate Another:** Create a new password.
-2. **Save Password:** Save to `Passwords.txt`.
-3. **Save Login Info:** Include website/title and username.
-4. **Main Menu:** Return to initial menu.
-0. **Exit:** Close the script.
+#### Action Menu (After Generating a Password)
+- **1. Generate Another:** Create a new password with the same settings.
+- **2. Save Password:** Save the password to `Passwords.txt`.
+- **3. Save Login Info:** Save website/title, username, and password to `Passwords.txt`.
+- **4. Main Menu:** Return to the main menu.
+- **0. Exit:** Close the script.
 
 ---
 
