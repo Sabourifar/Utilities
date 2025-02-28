@@ -121,19 +121,6 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
 
 ---
 
-## Changes from Previous Versions
-
-### DNS Configuration Utility v5 (from v4)
-- **Improved Validation:** Added IP address validation for custom DNS entries.
-- **Menu Consistency:** Standardized "0" as the exit option; added "Return to menu" in public DNS list.
-- **Usability:** Enhanced prompts and error messages for clarity.
-
-### Password Manager Utility v3 (from v2)
-- **Menu Simplification:** Reduced main menu options to 2 + exit (0); aligned action menu exit to "0".
-- **Consistency:** Standardized "0" for exiting across all menus.
-
----
-
 ## Contributing
 
 Feel free to modify and enhance the scripts. Contributions are welcome!
