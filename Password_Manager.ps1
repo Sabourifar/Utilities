@@ -1,6 +1,6 @@
 <#
 =======================================================================================================================
-                                       Password Manager Utility v2 By Sabourifar
+                                       Password Manager Utility v3 By Sabourifar
 =======================================================================================================================
 
 DESCRIPTION:
@@ -29,7 +29,7 @@ while allowing locally created scripts (like this one) to run.
 function PasswordManager {
     # Define constants for separator line and title formatting
     $line_sep = '=' * 120
-    $title = " Password Manager Utility v2 By Sabourifar "
+    $title = " Password Manager Utility v3 By Sabourifar "
     $left_equals = 38
     $right_equals = 39
     $title_line = ('=' * $left_equals) + $title + ('=' * $right_equals)
@@ -59,29 +59,29 @@ function PasswordManager {
         Write-Host ""
         Write-Host " 1. Secure Password (Recommended)"
         Write-Host " 2. Custom Password"
-        Write-Host " 3. Exit"
+        Write-Host " 0. Exit"
         Write-Host ""
         
-        # Prompt for and validate main menu choice (1, 2, or 3)
+        # Prompt for and validate main menu choice (0, 1, or 2)
         do {
             Write-Host "Enter Your Choice: " -NoNewline -ForegroundColor White
             $choice = Read-Host
             Write-Host ""
-            if ($choice -notmatch '^[123]$') {
+            if ($choice -notmatch '^[012]$') {
                 Write-Host $line_sep -ForegroundColor White
                 Write-Host ""
-                Write-Host "  ==== Invalid Choice! Please select 1, 2, or 3." -ForegroundColor Red
+                Write-Host "  ==== Invalid Choice! Please select 0, 1, or 2." -ForegroundColor Red
                 Write-Host ""
                 Write-Host $line_sep -ForegroundColor White
                 Write-Host ""
             }
-        } while ($choice -notmatch '^[123]$')
+        } while ($choice -notmatch '^[012]$')
 
         # Mark that the first run has completed
         $firstRun = $false
 
-        # Exit the script if user selects option 3
-        if ($choice -eq '3') { break }
+        # Exit the script if user selects option 0
+        if ($choice -eq '0') { break }
 
         # Prompt for and validate password length (4-80)
         while ($true) {
@@ -162,23 +162,23 @@ function PasswordManager {
             Write-Host " 2. Save Password"
             Write-Host " 3. Save Login Info"
             Write-Host " 4. Main Menu"
-            Write-Host " 5. Exit"
+            Write-Host " 0. Exit"
             Write-Host ""
             
-            # Prompt for and validate action menu choice (1-5)
+            # Prompt for and validate action menu choice (0-4)
             do {
                 Write-Host "Enter Your Choice: " -NoNewline -ForegroundColor White
                 $action = Read-Host
                 Write-Host ""
-                if ($action -notmatch '^[1-5]$') {
+                if ($action -notmatch '^[0-4]$') {
                     Write-Host $line_sep -ForegroundColor White
                     Write-Host ""
-                    Write-Host "  ==== Invalid Choice! Please select 1, 2, 3, 4, or 5." -ForegroundColor Red
+                    Write-Host "  ==== Invalid Choice! Please select 0, 1, 2, 3, or 4." -ForegroundColor Red
                     Write-Host ""
                     Write-Host $line_sep -ForegroundColor White
                     Write-Host ""
                 }
-            } while ($action -notmatch '^[1-5]$')
+            } while ($action -notmatch '^[0-4]$')
 
             # Handle save actions (options 2 and 3)
             if ($action -in 2,3) {
@@ -217,8 +217,8 @@ function PasswordManager {
                 Write-Host $line_sep -ForegroundColor White
                 continue mainloop 
             }
-            # Exit the script (option 5)
-            if ($action -eq '5') { break mainloop }
+            # Exit the script (option 0)
+            if ($action -eq '0') { break mainloop }
 
         } while ($action -eq '1')  # Repeat if user chooses to generate another password
     }
