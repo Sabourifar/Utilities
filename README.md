@@ -5,7 +5,7 @@
 This repository contains two utilities developed by Sabourifar: 
 
 1. **DNS Configuration Utility**
-2. **Password Manager Utility** (formerly Password Generator Utility)
+2. **Password Manager Utility**
 
 These scripts are designed to facilitate network DNS configuration and secure password generation/management, respectively.
 
@@ -15,13 +15,7 @@ These scripts are designed to facilitate network DNS configuration and secure pa
 
 ### Overview
 
-The **DNS Configuration Utility v4** is an enhanced Batch script developed by Sabourifar to simplify DNS configuration on Windows machines. This utility helps users manage DNS settings with pre-configured public servers, custom configurations, DHCP reversion, or DNS cache flushing.
-
-### Changes from v3
-
-- Improved code readability with defined UI constants and streamlined PowerShell commands.
-- Enhanced structure with consolidated error handling sections.
-- Minor formatting adjustments for a polished output.
+The **DNS Configuration Utility v4** is a Batch script developed by Sabourifar to simplify DNS configuration on Windows machines. This utility helps users manage DNS settings with pre-configured public servers, custom configurations, DHCP reversion, or DNS cache flushing.
 
 ### Features
 
@@ -77,14 +71,6 @@ The **DNS Configuration Utility v4** is an enhanced Batch script developed by Sa
 ### Overview
 
 The **Password Manager Utility v2** is a PowerShell script that generates secure passwords and manages login information. It offers secure or custom password generation with options to save passwords or full login details.
-
-### Changes from v1 (Password Generator)
-
-- Renamed to "Password Manager" to reflect added login info management.
-- Added saving of website/title and username alongside passwords.
-- Multi-level menu system for generation and actions.
-- Ensures required character types in passwords with shuffling.
-- Persistent loop until exit, improved input validation, and detailed documentation.
 
 ### Features
 
