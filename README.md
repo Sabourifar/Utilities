@@ -35,7 +35,7 @@ The **DNS Configuration Utility v5** is a Batch script developed by Sabourifar t
 ### Usage
 
 1. **Run the Script:**
-   - Right-click `DNS_Config_Utility.bat` and select **Run as administrator**.
+   - Right-click `DNS_Configuration.bat` and select **Run as administrator**.
 2. **Follow Prompts:**
    - View active interface and current DNS settings.
    - Choose a configuration method from the menu.
