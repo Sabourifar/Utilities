@@ -35,7 +35,7 @@ The **DNS Configuration Utility v5** is a Batch script developed by Sabourifar t
 ### Usage
 
 1. **Run the Script:**
-   - Right-click `DNS_Config_Utility_v5.bat` and select **Run as administrator**.
+   - Right-click `DNS_Config_Utility.bat` and select **Run as administrator**.
 2. **Follow Prompts:**
    - View active interface and current DNS settings.
    - Choose a configuration method from the menu.
@@ -107,7 +107,7 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
 ### Usage
 
 1. **Run the Script:**
-   - Right-click `Password_Manager_v3.ps1` and select **Run with PowerShell**.
+   - Right-click `Password_Manager.ps1` and select **Run with PowerShell**.
 2. **Main Menu:**
    - Choose secure/custom password generation or exit (0).
 3. **Set Length:** Enter 4-80 characters.
