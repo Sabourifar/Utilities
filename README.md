@@ -79,11 +79,11 @@ The **DNS Configuration Utility v5** is a Batch script developed by Sabourifar t
 
 ---
 
-## Password Manager Utility v3
+## Password Manager Utility v4
 
 ### Overview
 
-The **Password Manager Utility v3** is a PowerShell script that generates secure passwords and manages login information. It offers secure or custom password generation with options to save passwords or full login details.
+The **Password Manager Utility v4** is a PowerShell script that generates secure passwords and manages login information. It offers secure or custom password generation with options to save passwords or full login details.
 
 ### Features
 
