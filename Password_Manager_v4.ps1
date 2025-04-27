@@ -1,6 +1,6 @@
 <#
 =======================================================================================================================
-                                       Password Manager Utility v3 By Sabourifar
+                                       Password Manager Utility v4 By Sabourifar
 =======================================================================================================================
 
 DESCRIPTION:
@@ -29,7 +29,7 @@ while allowing locally created scripts (like this one) to run.
 function PasswordManager {
     # Define constants for separator line and title formatting
     $line_sep = '=' * 120
-    $title = " Password Manager Utility v3 By Sabourifar "
+    $title = " Password Manager Utility v4 By Sabourifar "
     $left_equals = 38
     $right_equals = 39
     $title_line = ('=' * $left_equals) + $title + ('=' * $right_equals)
@@ -187,8 +187,11 @@ function PasswordManager {
                     "Password: $password`n="
                 }
                 else {
-                    $site = Read-Host "Website/Title: "
-                    $user = Read-Host "Username: "
+		    Write-Host "Website/Title: " -NoNewline -ForegroundColor White
+                    $site = Read-Host
+                    Write-Host ""
+		    Write-Host "Username: " -NoNewline -ForegroundColor White
+                    $user = Read-Host
                     Write-Host ""
                     "Website/Title: $site`nUsername: $user`nPassword: $password`n="
                 }
