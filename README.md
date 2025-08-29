@@ -4,36 +4,30 @@
 
 This repository contains two utilities developed by Sabourifar: 
 
-1. **DNS Configuration Utility v6**
-2. **Password Manager Utility v4**
+1. **DNS Configuration Utility**
+2. **Password Manager Utility**
 
 These scripts are designed to facilitate network DNS configuration and secure password generation/management, respectively.
 
 ---
 
-## DNS Configuration Utility v6
+## DNS Configuration Utility
 
 ### Overview
 
-The **DNS Configuration Utility v6** is an enhanced Batch script developed by Sabourifar to simplify DNS configuration on Windows machines. This utility helps users manage DNS settings with pre-configured public servers, custom configurations with IP validation, DHCP reversion, or DNS cache flushing.
-
-### New Features in v6
-
-- **DNS Provider Recognition:** Automatically detects and displays the name of your current DNS provider
-- **DHCP Detection:** Identifies when DNS is set to DHCP and displays appropriate information
-- **Enhanced DNS Provider List:** Expanded list of 12 pre-configured DNS providers
-- **Improved User Interface:** Consistent formatting with proper line separators throughout
-- **Automatic DNS Cache Flushing:** DNS cache is automatically flushed after any DNS configuration change
-- **Current DNS Configuration View:** New option to view current DNS settings with provider recognition
+The **DNS Configuration Utility** is a Batch script developed by Sabourifar to simplify DNS configuration on Windows machines. This utility helps users manage DNS settings with pre-configured public servers, custom configurations with IP validation, DHCP reversion, or DNS cache flushing.
 
 ### Features
 
 - **Automatic Network Interface Detection:** Detects the active network interface and displays current DNS settings with provider recognition
+- **DNS Provider Recognition:** Automatically detects and displays the name of your current DNS provider
+- **DHCP Detection:** Identifies when DNS is set to DHCP and displays appropriate information
 - **Pre-configured Public DNS Servers:** Expanded options including Cloudflare, Google, Quad9, OpenDNS, UltraDNS, and more
 - **Custom DNS Configuration:** Manually set primary and secondary DNS servers with IP format validation
 - **DHCP Reversion:** Revert to automatic DNS settings via DHCP with proper detection
 - **DNS Cache Flush:** Clear the DNS resolver cache with consistent formatting
 - **Current DNS View:** View your current DNS configuration with provider recognition
+- **Automatic DNS Cache Flushing:** DNS cache is automatically flushed after any DNS configuration change
 - **User-Friendly Interface:** Menu-driven with standardized prompts, error handling, and consistent formatting
 - **Administrative Privileges Check:** Auto-requests elevation if needed
 
@@ -100,11 +94,11 @@ The **DNS Configuration Utility v6** is an enhanced Batch script developed by Sa
 
 ---
 
-## Password Manager Utility v4
+## Password Manager Utility
 
 ### Overview
 
-The **Password Manager Utility v4** is a PowerShell script that generates secure passwords and manages login information. It offers secure or custom password generation with options to save passwords or full login details.
+The **Password Manager Utility** is a PowerShell script that generates secure passwords and manages login information. It offers secure or custom password generation with options to save passwords or full login details.
 
 ### Features
 
@@ -148,17 +142,6 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
 - **3. Save Login Info:** Save website/title, username, and password to `Passwords.txt`
 - **4. Main Menu:** Return to the main menu
 - **0. Exit:** Close the script
-
----
-
-## Version History
-
-### DNS Configuration Utility
-- **v6:** Added DNS provider recognition, DHCP detection, expanded provider list, improved UI, automatic DNS flushing
-- **v5:** Initial release with basic DNS configuration options
-
-### Password Manager Utility
-- **v4:** Current version with secure/custom password generation and login management
 
 ---
 
