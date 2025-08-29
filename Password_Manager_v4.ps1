@@ -270,3 +270,4 @@ function SecurePassword {
 
 # Start the password manager
 PasswordManager
+
